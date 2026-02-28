@@ -4,7 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-function showHeader($title = "RetroShow") {
+function showHeader($title = "TroneWatch") {
     global $show_menu;
     if (!isset($show_menu)) $show_menu = true;
     $current = strtolower(basename($_SERVER['SCRIPT_NAME']));
@@ -30,7 +30,7 @@ function showHeader($title = "RetroShow") {
 </style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><?= htmlspecialchars($title) ?> - RetroShow</title>
+<title><?= htmlspecialchars($title) ?> - TroneWatch Late 2005</title>
 		
 		<script language="javascript" type="text/javascript">
 		onLoadFunctionList = new Array();
@@ -123,12 +123,12 @@ function showHeader($title = "RetroShow") {
 
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 	<tbody><tr valign="top">
-		<td width="130" rowspan="2" style="padding: 0px 5px 5px 5px;"><a href="index.php"><img src="img/logo_sm.gif" width="120" height="48" alt="RetroShow" border="0" style="vertical-align: middle; "></a></td>
+		<td width="130" rowspan="2" style="padding: 0px 5px 5px 5px;"><a href="index.php"><img src="img/logo_sm.gif" width="120" height="48" alt="TroneWatch" border="0" style="vertical-align: middle; "></a></td>
 		<td valign="top">
 		
 		<table width="670" cellpadding="0" cellspacing="0" border="0">
 			<tbody><tr valign="top">
-				<td style="padding: 0px 5px 0px 5px; font-style: italic;">Загружайте и делитесь видео по всему миру!</td>
+				<td style="padding: 0px 5px 0px 5px; font-style: italic;">TroneWatch Late 2005 — загружайте и делитесь видео по всему миру!</td>
 				<td align="right">
 				
 				<table cellpadding="0" cellspacing="0" border="0">
