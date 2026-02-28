@@ -127,97 +127,75 @@ function showHeader($title = "RetroShow") {
 		<td valign="top">
 		
 		<table width="670" cellpadding="0" cellspacing="0" border="0">
-			<tbody><tr valign="top">
-				<td style="padding: 0px 5px 0px 5px; font-style: italic;">Загружайте и делитесь видео по всему миру!</td>
-				<td align="right">
-				
-				<table cellpadding="0" cellspacing="0" border="0">
-					<tbody><tr>
-		
-						<?php if (!isset($_SESSION['user'])): ?>
-							<td><a href="register.php"><strong>Регистрация</strong></a></td>
-							<td style="padding: 0px 5px 0px 5px;">|</td>
-							<td><a href="login.php">Вход</a></td>
-							<td style="padding: 0px 5px 0px 5px;">|</td>
-							<td style="padding-right: 5px;"><a href="help.php">Помощь</a></td>
-						<?php else: ?>
-							<td>Привет, <strong><?=htmlspecialchars($_SESSION['user'])?></strong></td>
-							<td class="myAccountContainer" style="padding: 0px 0px 0px 5px;">|<span style="white-space: nowrap;">
-<a href="account.php" onmouseover="showDropdownShow();">Мой аккаунт</a><a href="#" onclick="arrowClicked();return false;" onmouseover="document.arrowImg.src='/img/icon_menarrwdrpdwn_mouseover3_14x14.gif'" onmouseout="document.arrowImg.src='/img/icon_menarrwdrpdwn_regular_14x14.gif'"><img name="arrowImg" src="img_/icon_menarrwdrpdwn_regular_14x14.gif" align="texttop" border="0" style="margin-left: 2px;"></a>
-
-<div id="myAccountDropdown" class="myAccountMenu" onmouseover="showDropdown();" onmouseout="hideDropwdown();" style="display: none; position: absolute;">
-	<div id="menuContainer" class="menuBox">
-		<div class="menuBoxItem" id="MyAccountMyVideo" onmouseover="showDropdown();changeBGcolor(this,1);" onmouseout="changeBGcolor(this,0);">
-			<a href="<?php echo isset($_SESSION['user']) ? 'channel.php?user=' . urlencode($_SESSION['user']) . '&tab=videos' : 'login.php'; ?>" class="dropdownLinks"><span class="smallText">Мои видео</span></a>
-		</div>
-		<div class="menuBoxItem <?php echo ($currentPage == 'favourites.php') ? 'active' : ''; ?>" id="MyAccountMyFavorites" onmouseover="showDropdown();changeBGcolor(this,1);" onmouseout="changeBGcolor(this,0);">
-				<a href="<?php echo (isset($_SESSION['user'])) ? 'favourites.php?user=' . urlencode($_SESSION['user']) : 'login.php'; ?>" class="dropdownLinks"><span class="smallText">Избранное</span></a>
-			</div>
-			<div class="menuBoxItem <?php echo ($currentPage == 'friends.php') ? 'active' : ''; ?>" id="MyAccountSubscription" onmouseover="showDropdown();changeBGcolor(this,1);" onmouseout="changeBGcolor(this,0);">
-				<a href="<?php echo (isset($_SESSION['user'])) ? 'friends.php?user=' . urlencode($_SESSION['user']) : 'login.php'; ?>" class="dropdownLinks"><span class="smallText">Мои друзья</span></a>
-			</div>
-	</div>
-</div>
-<script>
-toggleVisibility('myAccountDropdown',0);
-</script></span></td>
-							<td style="padding: 0px 5px 0px 5px;">|</td>
-							<td><a href="help.php">Помощь</a></td>
-							<td style="padding: 0px 5px 0px 5px;">|</td>
-							<td style="padding-right: 5px;"><a href="logout.php">Выйти</a></td>
-							
-						<?php endif; ?>
-	
-		
-										
-					</tr>
-				</tbody></table>
-				
+			<tbody>
+			<tr valign="top">
+				<td style="padding: 0px 5px 3px 5px; font-size:11px; color:#666;">Broadcast Yourself</td>
+				<td align="right" style="font-size:11px;">
+					<?php if (!isset($_SESSION['user'])): ?>
+						<a href="register.php"><strong>Sign Up</strong></a> |
+						<a href="login.php">Log In</a> |
+						<a href="channel.php">Viewing History</a> |
+						<a href="help.php">Help</a>
+					<?php else: ?>
+						Hello, <strong><?=htmlspecialchars($_SESSION['user'])?></strong> |
+						<a href="account.php">My Account</a> |
+						<a href="logout.php">Log Out</a> |
+						<a href="help.php">Help</a>
+					<?php endif; ?>
 				</td>
 			</tr>
-		</tbody></table>
-		</td>
-	</tr>
-	<tr valign="bottom">
-		<td>
-		
-		<div id="gNavDiv">
-		<div id="gNavDiv">
-			<?php
-			$current_script = strtolower(basename($_SERVER['SCRIPT_NAME']));
-
-			$tabs = [
-				['index.php', 'Главная', 'index.php'],
-				['channel.php,favourites.php,friends.php', 'Смотреть&nbsp;видео', 'channel.php'],
-				['upload.php', 'Загрузить&nbsp;видео', 'upload.php'],
-				['my_friends_invite.php', 'Пригласить&nbsp;друзей', 'my_friends_invite.php']
-			];
-
-			$found = false;
-			foreach ($tabs as $tab) {
-				if (in_array($current_script, explode(',', $tab[0]))) {
-					$found = true;
-					break;
-				}
-			}
-
-			if (!$found) {
-				$current_script = 'index.php';
-			}
-
-			foreach ($tabs as $tab) {
-				$is_active = in_array($current_script, explode(',', $tab[0]));
-				$class = $is_active ? 'ltab' : 'tab';
-				$rc_class = $is_active ? 'rcs' : 'rc';
-				$selected = $is_active ? ' selected' : '';
-				echo "<div class=\"$class\"><b class=\"$rc_class\"><b class=\"{$rc_class}1\"><b></b></b><b class=\"{$rc_class}2\"><b></b></b><b class=\"{$rc_class}3\"></b><b class=\"{$rc_class}4\"></b><b class=\"{$rc_class}5\"></b></b><div class=\"tabContent$selected\"><a href=\"{$tab[2]}\">{$tab[1]}</a></div></div>";
-			}
-			?>
-</div>
-
-		</div>
-		</td>
-	</tr>
+			<tr>
+				<td></td>
+				<td align="right" style="padding:2px 0 4px 0;">
+					<form action="channel.php" method="get" style="margin:0;">
+						<input type="text" name="search" size="40" style="font-size:12px;">
+						<select name="search_type" style="font-size:12px;">
+							<option value="videos">Videos</option>
+							<option value="channels">Channels</option>
+						</select>
+						<input type="submit" value="Search" style="font-size:12px;">
+					</form>
+				</td>
+			</tr>
+			</tbody></table>
+			</td>
+		</tr>
+		<tr valign="bottom">
+			<td>
+			
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:2px;">
+				<tr>
+					<?php
+					$current_script = strtolower(basename($_SERVER['SCRIPT_NAME']));
+					$tabs = [
+						['index.php', 'Home', 'index.php'],
+						['channel.php,video.php,favourites.php,friends.php', 'Videos', 'channel.php'],
+						['channel.php', 'Channels', 'channel.php'],
+						['friends.php,my_friends_invite.php', 'Groups', 'friends.php'],
+						['results.php', 'Categories', 'results.php'],
+						['upload.php', 'Upload', 'upload.php']
+					];
+					foreach ($tabs as $tab):
+						$is_active = in_array($current_script, explode(',', $tab[0]));
+					?>
+					<td align="center" style="background:<?= $is_active ? '#b9cae8' : '#c7d4eb' ?>; border:1px solid #ffffff; border-bottom:none; padding:4px 10px; font-size:18px; font-weight:bold;">
+						<a href="<?= $tab[2] ?>" style="text-decoration:underline; color:#0033cc;"><?= $tab[1] ?></a>
+					</td>
+					<?php endforeach; ?>
+				</tr>
+			</table>
+			<div style="background:#dedede; border-top:1px solid #9bb2d4; border-bottom:1px solid #c5c5c5; padding:5px 10px; text-align:center; font-size:18px;">
+				<a href="channel.php">Most Recent</a> |
+				<a href="channel.php?sort=views">Most Viewed</a> |
+				<a href="channel.php?sort=rating">Top Rated</a> |
+				<a href="channel.php">Most Discussed</a> |
+				<a href="favourites.php">Top Favorites</a> |
+				<a href="channel.php">Most Linked</a> |
+				<a href="channel.php">Recently Featured</a> |
+				<a href="channel.php?sort=rating">Worst Rated</a>
+			</div>
+			</td>
+		</tr>
 	
 </tbody></table>
 
