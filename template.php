@@ -128,7 +128,7 @@ function showHeader($title = "TroneWatch") {
 		
 		<table width="670" cellpadding="0" cellspacing="0" border="0">
 			<tbody><tr valign="top">
-				<td style="padding: 0px 5px 0px 5px; font-style: italic;">TroneWatch Late 2005 — загружайте и делитесь видео по всему миру!</td>
+				<td style="padding: 0px 5px 0px 5px; font-style: italic;">Upload, tag and share your videos worldwide!</td>
 				<td align="right">
 				
 				<table cellpadding="0" cellspacing="0" border="0">
@@ -187,10 +187,10 @@ toggleVisibility('myAccountDropdown',0);
 			$current_script = strtolower(basename($_SERVER['SCRIPT_NAME']));
 
 			$tabs = [
-				['index.php', 'Главная', 'index.php'],
-				['channel.php,favourites.php,friends.php', 'Смотреть&nbsp;видео', 'channel.php'],
-				['upload.php', 'Загрузить&nbsp;видео', 'upload.php'],
-				['my_friends_invite.php', 'Пригласить&nbsp;друзей', 'my_friends_invite.php']
+				['index.php', 'Home', 'index.php'],
+				['channel.php,favourites.php,friends.php', 'Watch&nbsp;Videos', 'channel.php'],
+				['upload.php', 'Upload&nbsp;Videos', 'upload.php'],
+				['my_friends_invite.php', 'Invite&nbsp;Friends', 'my_friends_invite.php']
 			];
 
 			$found = false;
@@ -235,32 +235,18 @@ toggleVisibility('myAccountDropdown',0);
 			<tbody><tr>
 				<td style="font-size: 10px;">&nbsp;</td>
 				
-				<?php
-$menu_user = isset($_SESSION['user']) ? $_SESSION['user'] : '';
-$cur_user = isset($_GET['user']) ? $_GET['user'] : '';
-$cur_tab = $_GET['tab'] ?? '';
-$cur_script = strtolower(basename($_SERVER['SCRIPT_NAME']));
-$is_my_videos = $cur_script === 'channel.php' && $cur_tab === 'videos' && $menu_user && $cur_user === $menu_user;
-$is_my_channel = $cur_script === 'channel.php' && ($cur_tab === '' || !isset($_GET['tab'])) && $menu_user && $cur_user === $menu_user;
-$is_fav = $cur_script === 'favourites.php' && $menu_user && $cur_user === $menu_user;
-$is_friends = $cur_script === 'friends.php' && $menu_user && $cur_user === $menu_user;
-$is_account = $cur_script === 'account.php';
 
-$link_my_videos = isset($_SESSION['user']) ? 'channel.php?user=' . urlencode($_SESSION['user']) . '&tab=videos' : 'login.php';
-$link_my_channel = isset($_SESSION['user']) ? 'channel.php?user=' . urlencode($_SESSION['user']) : 'login.php';
-$link_fav = isset($_SESSION['user']) ? 'favourites.php?user=' . urlencode($_SESSION['user']) : 'login.php';
-$link_friends = isset($_SESSION['user']) ? 'friends.php?user=' . urlencode($_SESSION['user']) : 'login.php';
-$link_account = isset($_SESSION['user']) ? 'account.php' : 'login.php';
-?>
-<td style="  "><?=nav_link_ex($link_my_videos, 'Мои видео', $is_my_videos)?></td>
+<td><a href="channel.php?filter=recent">Most Recent</a></td>
 <td style="padding: 0px 10px 0px 10px;">|</td>
-<td style="  "><?=nav_link_ex($link_my_channel, 'Мой канал', $is_my_channel)?></td>
+<td><a href="channel.php?filter=viewed">Most Viewed</a></td>
 <td style="padding: 0px 10px 0px 10px;">|</td>
-<td style="  "><?=nav_link_ex($link_fav, 'Избранное', $is_fav)?></td>
+<td><a href="channel.php?filter=discussed">Most Discussed</a></td>
 <td style="padding: 0px 10px 0px 10px;">|</td>
-<td style="  "><?=nav_link_ex($link_friends, 'Мои друзья', $is_friends)?></td>
+<td><a href="channel.php?filter=favorites">Top Favorites</a></td>
 <td style="padding: 0px 10px 0px 10px;">|</td>
-<td style="  "><?=nav_link_ex($link_account, 'Настройки', $is_account)?></td>
+<td><a href="channel.php?filter=rated">Recently Featured</a></td>
+<td style="padding: 0px 10px 0px 10px;">|</td>
+<td><a href="channel.php?filter=random">Random</a></td>
 <td style="font-size: 10px;">&nbsp;</td>
 </tr></table>
 			
@@ -278,7 +264,7 @@ $link_account = isset($_SESSION['user']) ? 'account.php' : 'login.php';
 <table align="center" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 10px;">
 	<tbody><tr>
 		<td style="padding-right: 5px;"><input tabindex="1" type="text" value="<?=htmlspecialchars($_GET['search_query'] ?? '')?>" name="search_query" maxlength="128" style="color:#ff3333; font-size: 12px; width: 300px;"></td>
-		<td><input type="submit" value="Искать видео"></td>
+		<td><input type="submit" value="Search Videos"></td>
 	</tr></tbody></table>
 </form>
 
