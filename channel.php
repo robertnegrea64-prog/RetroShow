@@ -593,6 +593,9 @@ if (!$user && (!isset($_GET['tab']) || $_GET['tab'] === '')) {
         case 'featured':
             $filter_name = 'Рекомендуемые';
             break;
+        case 'random':
+            $filter_name = 'Случайные';
+            break;
     }
     
     $order_by = 'id DESC';
@@ -693,9 +696,20 @@ if (!$user && (!isset($_GET['tab']) || $_GET['tab'] === '')) {
             $total_pages = ceil($total / $per_page);
             $videos = array_slice($all_videos, $offset, $per_page);
             break;
+        case 'random':
+            $stmt = $db->prepare("SELECT id, title, preview, description, time, views, user, file FROM videos WHERE private = 0");
+            $stmt->execute();
+            $all_videos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            shuffle($all_videos);
+
+            $total = count($all_videos);
+            $total_pages = ceil($total / $per_page);
+            $videos = array_slice($all_videos, $offset, $per_page);
+            break;
     }
     
-    if ($filter !== 'discussed' && $filter !== 'favorites' && $filter !== 'rated') {
+    if ($filter !== 'discussed' && $filter !== 'favorites' && $filter !== 'rated' && $filter !== 'random') {
         $stmt = $db->prepare("SELECT COUNT(*) FROM videos WHERE private = 0");
         $stmt->execute();
         $total = $stmt->fetchColumn();
@@ -818,7 +832,8 @@ $filters = [
     'viewed' => 'Популярные', 
     'rated' => 'Высоко оцененные',
     'discussed' => 'Обсуждаемые',
-    'favorites' => 'Избранные'
+    'favorites' => 'Избранные',
+    'random' => 'Случайные'
 ];
 
 $first = true;
